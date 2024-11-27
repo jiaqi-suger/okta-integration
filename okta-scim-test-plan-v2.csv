@@ -1,0 +1,945 @@
+ID,Title,Section,Preconditions,Steps,Expected Result
+C9296,Add People,Preconditions - SCIM App Setup / Add People / Add Group,1. Sign in to Okta as Admin,"1. From the **People** page, click **Add Person**.
+2. Enter the **First name** and **Last name.**
+3. Enter the **Username.**
+4. The user name must be in email address format, and is typically the user's primary email address. Users sign in using this username.
+5. Enter a **Primary email** address.
+6. Click **Save**, or add another by clicking **Save and Add Another**.
+
+","If you select the Send user activation email now check box, your end user immediately receives their Welcome to Okta! activation email. Otherwise, these users are at Pending Activation status and are not notified through email of their Okta account."
+C9297,Add Group,Preconditions - SCIM App Setup / Add People / Add Group,Sign in to Okta as Admin,"1. From the **Group** page, click **Add Group**
+2. From the **Add Group** pane, enter **Name** and **Description** of the Group
+3. Click  **Add Group**
+",The group successfully created in Okta
+C9298,Setup SCIM App,Preconditions - SCIM App Setup / Add People / Add Group,Configure Okta ,Setup SCIM application according to your configuration guide,Application successfully configured
+C9308,Add People to Group,Preconditions - SCIM App Setup / Add People / Add Group,"1. Sign in to Okta as Admin 
+2. Group has been created [C9297]
+","1. From the **Group** page, search out a required group
+2. Click an end group's name
+3. From the **Group edit** page, click **Assign People**
+4. From the search by panel, search out a required member
+5. Click their name or the **+** icon to add them to the Members pane
+6. Click **Save**
+",The member successfully added to a group and listed below
+C9313,Rename app groups to match group name in Okta flag - ENABLED,Preconditions - SCIM App Setup / Add People / Add Group,"1. SCIM app is added [C9298]
+2. Provisioning is enabled [C9306]","1. Sign in to Okta as **Admin**
+2. Go to https:<domain>/admin/dashboard
+3. From the **Dashboard** page, search your application
+4. From the **Application** page, select the **Push Groups** tab
+5. Under **Push Groups** tab, click **Gear** icon
+6. From the **Group Push Settings** pane, select **Rename app groups to match group name in Okta**
+7. From the **Group Push Settings** pane,  click **Save**",Flag is enabled
+C9314,Rename app groups to match group name in Okta flag - DISABLED,Preconditions - SCIM App Setup / Add People / Add Group,"1. SCIM app is added [C9298]
+2. Provisioning is enabled [C9306]","1. Sign in to Okta as **Admin**
+2. Go to https:<domain>/admin/dashboard
+3. From the **Dashboard** page, search your application
+4. From the **Application** page, select the **Push Groups** tab
+5. Under **Push Groups** tab, click **Gear** icon
+6. From the **Group Push Settings** pane, remove the tick  **Rename app groups to match group name in Okta**
+7. From the **Group Push Settings** pane,  click **Save**",Flag is disabled
+C21902,Verify OAUTH2 using NOT allow-listed redirect URIs,Precondition - Provisioning and SSO,SCIM app is added C9298,"1. Sign in to Okta as Admin
+2. Go to https:<domain>/admin/dashboard
+3. From the Dashboard page, search for your application
+4. From the Application page, select the Provisioning tab
+5. From Settings, click on API Integration
+6. Click on Configure API Integration
+7. Click on the Enable API integration check-box
+8. Click on Authenticate with your app
+9. You will be redirected to the login page, which prompts you to enter your credentials
+9.1 Change the callback URI to a blocklisted URI. For example:
+https://ct1-bootstrap.clouditude.com/admin/app/cpc/%7BappName%7D/oauth/callback
+10. You will be asked to confirm access to your Okta account
+11. You will then be redirected back to Okta and will receive an error.
+",Any URI that is not allow-listed  will not go through and will not result in a successful authentication. It will close after you update
+C9306,Enable Provisioning and SCIM features,Precondition - Provisioning and SSO,1. SCIM app is added [C9298],"1. Sign in to Okta as Admin 
+2. Go to https:<domain>/admin/dashboard
+3. From the **Dashboard** page, search your application 
+4. From the **Application page**, select **Provisioning tab**
+5. From the **Settings**, click **Integration**
+6. Click **Configure API Integration**
+7. Click **Enable API integration** check-box
+8. Enter Base Url and token according to a configuration guide
+9. Click **Save**
+10. From the **Settings**, click **To App**
+11. Click **Edit**
+12. Enable features (for example, Create Users)
+13. Click **Save**
+",Configuration successfully saved. All features successfully enabled
+C9339,Disable Provisioning,Precondition - Provisioning and SSO,"1. SCIM app is added [C9298]
+","1. Sign in to Okta as Admin 
+2. Go to https:<domain>/admin/dashboard
+3. From the **Dashboard** page, search your application 
+4. From the **Application page**, select **Provisioning tab**
+5. From the **Settings**, click **API Integration**
+6. Click **Configure API Integration**
+7. Click **Enable API integration** check-box
+8. Enter Base Url and token according to a configuration guide
+9. Click **Save**
+10. Click **Assignment** tab and a member to app [C9290]
+11. From the **Settings**, click **Integration**
+12. Click **Edit**
+13. Remove a tick from ** Enable API integration** check-box
+14. Click **Save**
+16. From the **Assignment** tab, click the edit icon
+17. Update attributes 
+18. Click **Save** changes",As provisioning is disabled nothing should be updated in the application
+C9340,Enable Provisioning With Incorrect credentials,Precondition - Provisioning and SSO,"1. SCIM app is added [C9298]
+","1. Sign in to Okta as Admin 
+2. Go to https:<domain>/admin/dashboard
+3. From the **Dashboard** page, search your application 
+4. From the **Application page**, select **Provisioning tab**
+5. From the **Settings**, click **Integration**
+6. Click **Configure API Integration**
+7. Click **Enable API integration** check-box
+8. Enter incorrect userUrl or token
+9. Click **Save**
+",An error has occurred
+C9341,Update Provisioning With Correct Credentials,Precondition - Provisioning and SSO,"1. Add ISV application to Okta C9298
+2. Enable provisioning C9306
+3. Generate new token in App","1. Sign in to Okta as Admin 
+2. Go to https:<domain>/admin/dashboard
+3. From the **Dashboard** page, search your application 
+4. From the **Application page**, select **Provisioning tab**
+5. From the **Settings**, click **API Integration**
+6. Click **Configure API Integration**
+7. Click **Enable API integration** check-box
+8. Enter a new token
+9. Click **Save**","The new token should be successfully applied. 
+"
+C9342,Verify Login to App SWA,Precondition - Provisioning and SSO,1. SCIM app is added [C9298],"1. Sign in to Okta as Admin 
+2. Go to https:<domain>/admin/dashboard
+3. From the **Dashboard** page, search your application 
+4. From the **Application page**, select **Provisioning tab**
+5. From the **Settings**, click **Integration**
+6. Click **Configure API Integration**
+7. Click **Enable API integration** check-box
+8. Enter Base Url and token according to a configuration guide
+9. Click **Save**
+10. From the **Settings**, click **To App**
+11. Click **Edit**
+12. Enable features (for example, Create Users)
+13. Click **Save**
+14. From the **Application** page, click **Sign On** tab
+15. From the **Settings** pane, click **Edit** and select **Secure Web Authentication**
+16. Click **Save**
+17. From the **Application** page, select the Assignment Tab > Assign Button > Assign to People
+18. From the **Assign <Your App Name> to People** pane, search an already created user (C9296) 
+19. Click **Assign** and submit required attributes
+20. Click **Save and Go Back**
+21. Click **Done**
+22. Observe email for the assigned user and complete registration
+23. Sign in to **Okta** as an assigned user, using Okta tile",User successfully Sign in to App through Okta tile
+C9343,Verify Login to App SAML,Precondition - Provisioning and SSO,1. SCIM app is added [C9298],"1. Sign in to Okta as Admin 
+2. Go to https:<domain>/admin/dashboard
+3. From the **Dashboard** page, search your application 
+4. From the **Application page**, select **Provisioning tab**
+5. From the **Settings**, click **Integration**
+6. Click **Configure API Integration**
+7. Click **Enable API integration** check-box
+8. Enter Base Url and token according to a configuration guide
+9. Click **Save**
+10. From the **Settings**, click **To App**
+11. Click **Edit**
+12. Enable features (for example, Create Users)
+13. Click **Save**
+14. From the **Application** page, click **Sign On** tab
+15. From the **Settings** pane, click **Edit** and select **Secure Web Authentication**
+16. Click **Save**
+17. From the **Application** page, select the Assignment Tab > Assign Button > Assign to People
+18. From the **Assign <Your App Name> to People** pane, search an already created user (C9296) 
+19. Click **Assign** and submit required attributes
+20. Click **Save and Go Back**
+21. Click **Done**
+22. Observe email for the assigned user and complete registration
+23. Sign in to **Okta** as an assigned user, using Okta tile",User successfully Sign in to app through SAML
+C9289,Verify Attribute Type In the Profile Editor,Preconditions - Attributes and Mapping,"1. SCIM app is added [C9298]
+2. Provisioning is enabled [C9306]
+","1. Sign in to Okta as **Admin** 
+2. Go to https:<domain>/admin/dashboard
+3. From the **Dashboard** page, search your application 
+4. From the **Application** page, select **Provisioning** tab
+5. Under **Provisioning** tab select **Settings**
+6. Click **To App**
+7. Scroll to  **Profile Editor**
+8. Observe **Attribute type**","1, Make sure the following attributes set as **Attribute type=Personal**: Username, Given name, Family name Primary email and etc.
+2. **Attribute type=Group** should also be available for few attributes which applicable for group
+3. All attributes  should have **Attribute type**"
+C9344,Verify Basic Attributes,Preconditions - Attributes and Mapping,"1. Sign in to Okta as Admin
+2. Provisioning is enabled [C9306]","1. Sign in to Okta as **Admin** 
+2. Go to https:<domain>/admin/dashboard
+3. From the **Dashboard** page, search your application 
+4. From the **Application** page, select **Provisioning** tab
+5. Under **Provisioning** tab select **Settings**
+6. Click **To App**
+7. Scroll to  **Profile Editor**
+8. Click **Go To Profile Editor**
+9. From the **Attributes**, click **Base**
+","There should be added basic attributes: Username, Given name, Family name"
+C9345,Verify Attributes and Mapping,Preconditions - Attributes and Mapping,"1. Sign in to Okta as Admin
+2. Provisioning is enabled [C9306]","Okta is able to master attributes like first name, last name, phone number, employee ID and so on.  Verify attributes mapping between Okta and downstream application. The whole list of attributes should be listed in configuration guide",Verify mapping according to your configuration
+C9299,Verify Configuration Guide,Preconditions - Configuration Guide,1. SCIM app is added [C9298],"1. Sign in to Okta as **Admin** 
+2. Go to https:<domain>/admin/dashboard
+3. From the **Dashboard** page, search your application 
+4. From the **Application** page, select **Provisioning** tab
+5. Under **Provisioning** tab select **Settings**
+6. Click **Integration**
+7. Click **<Your App Name>: Configuration Guide**","Config guide should be available by the link
+All screenshots should contain Up To Date user interface - NOT DRAFT
+All steps should be clear
+The configuration guide should contain the following headlines: Supported Features, Requirements, Configuration Steps, Attributes and Mapping, Known Issues/Troubleshooting and Tips
+
+NOTE: For Known Issues/Troubleshooting and Tips - Leave N/A if you have nothing to add right now.
+
+Examples:
+https://docs.h5mag.com/advanced-features/okta-integration
+http://sharpr.com/home/how-to-configure-provisioning-for-sharpr/
+
+ "
+C9290,Verify App Assignment for New User,Create Users,"1. SCIM app is added [C9298]
+2. Provisioning is enabled [C9306]
+3. There should be a user in Okta org with 4 basic attributes: **username,firstname, lastname, email** . [C9296]","1. Sign in to Okta as **Admin**
+2. Go to https:<domain>/admin/dashboard
+3. From the **Dashboard** page, search your application
+4. From the **Application** page, select the Assignments Tab > Assign Button > Assign to People
+5. From the **Assign <Your App Name> to People** pane, search an already created user (C9296) 
+6. Click **Assign** and submit required attributes
+7. Click **Save and Go Back**
+8. Click **Done**
+9. Sign in to **Downstream Application** and observe the assigned user",The user should be created in a downstream application based on values derived from the Okta user profile and Okta group assignment.
+C9293,Verify Re-Activation Of User Is Synced To Target App,Create Users,"1. SCIM app is added [C9298]
+2. Provisioning is enabled [C9306]
+3. A user was assigned to the app and deactivated. [C9292]","1. Sign in to Okta as Admin 
+2. Go to **Directory** -> **People**
+3. From the People page, search a deactivated member
+4. Click an end user's name.
+5. Click **Activate**
+6. From the **Activate Person** pane, click **Activate** button 
+7. Go to https:<domain>/admin/dashboard
+8. From the Dashboard page, search your application
+9. From the Application page, select Assignments tab
+10. Under Assignment tab,  click **Assign** 
+11. Click **Assign to People**
+12. From the **Assign <Your App Name> to People** pane, search re-activated member 
+13. Click **Assign**
+11. Click **Save and Go Back**
+12. Click **Done**
+13. Observe re-activated user in a downstream application","The user should be reactivated in the target app. That is, the user should have a status of active.  The User has the same ID and same attributes which were synchronized from Okta. 
+ (The user will be automatically reactivated only if user assigned through group assignment otherwise need to assign a member manually to a downstream application)"
+C9300,Verify Un-Suspend User Functionality,Create Users,"1. SCIM app is added [C9298]
+2. Provisioning is enabled [C9306]
+3. User status is suspended [C9295]","1. Sign in to Okta as Admin 
+2. Go to https:<domain>/admin/dashboard
+3. From the **Dashboard** page, search your application 
+4. From the **Application page**, select **Assignments tab**
+5. Click an end user's name of a suspended member
+6. From the **User Profile** page, click **Activate**
+7. Go to the target app 
+9. Observe the member",Unsuspending people changes their account status from Suspended to Active. All app and group memberships are restored.
+C9307,Verify Group Assignment to Target App,Create Users,"1. SCIM app is added [C9298]
+2. Provisioning is enabled [C9306]
+3. A group exists with some users [C9308]","1. Sign in to Okta as **Admin** 
+2. Go to https:<domain>/admin/dashboard
+3. From the **Dashboard** page, search your application 
+4. From the **Application** page, select **Assignments** tab
+5. Under **Assignments** tab, click **Assign**
+6. Click **Assign To Groups**
+7. From the **Assign <Your App Name> to Groups** pane,  search your group
+8. From the **Assign <Your App Name> to Groups** pane, click **Assign**
+9. From the **Assign <Your App Name> to Groups** pane, click **Done** or submit the form to update group's attributes and then click **Save and Go Back**","The users from the group should be created in a downstream application based on values derived from the Okta user profile and Okta group assignment.
+Under **Assignments tab**, these users should contain **Type=Group**."
+C9334,Verify App Assignment For New User Which Has All Attributes,Create Users,"1. SCIM app is added [C9298]
+2. Provisioning is enabled [C9306]
+3. There should be a user in Okta org with 4 basic attributes: **username,firstname, lastname, email** . [C9296]","1. Sign in to Okta as **Admin**
+2. Go to Directory > People.
+3. Search User [C9296]  and click an end user's name.
+4. From the **Profile Page** page, click **Profile**
+5. Click **Edit**
+6. Update all attributes
+7. Click **Save** 
+8. Go to https:<domain>/admin/dashboard
+3. From the **Dashboard** page, search your application
+4. From the **Application** page, select the Assignments Tab > Assign Button > Assign to People
+5. From the **Assign <Your App Name> to People** pane, search an already created and updated user (C9296) 
+6. Click **Assign**
+7. Click **Save and Go Back**
+8. Click **Done**
+9. Sign in to **Downstream Application** and observe the assigned user",The user should be created in a downstream application based on values derived from the Okta user profile and Okta group assignment. No errors occurred
+C9335,Verify App Assignment For User Already Created In App,Create Users,"1. SCIM app is added [C9298]
+2. Provisioning is enabled [C9306]
+3. There should be a user in Okta org with 4 basic attributes: **username,firstname, lastname, email** . [C9296]
+4. Create a member in a downstream application, use the same attributes as you submitted in [C9296]","1. Sign in to Okta as **Admin**
+2. Go to https:<domain>/admin/dashboard
+3. From the **Dashboard** page, search your application
+4. From the **Application** page, select the Assignments Tab > Assign Button > Assign to People
+5. From the **Assign <Your App Name> to People** pane, search an already created user (C9296), the same user already created in an application
+6. Click **Assign**
+7. Click **Save and Go Back**
+8. Click **Done**
+9. Sign in to **Downstream Application** and observe the member from okta should be linked with member from application","The user should be linked with a user in a downstream application,  user profile should be updated based on values derived from the Okta user profile and Okta group assignment."
+C9336,Verify App Assignment For User With a Unique UserName And Email,Create Users,"1. SCIM app is added [C9298]
+2. Provisioning is enabled [C9306]
+3. There should be a user in Okta org with 4 basic attributes: **username,firstname, lastname, email** . Submit a user with Unique UserName And Email
+ [C9296]","1. Sign in to Okta as **Admin**
+2. Go to https:<domain>/admin/dashboard
+3. From the **Dashboard** page, search your application
+4. From the **Application** page, select the Assignment Tab > Assign Button > Assign to People
+5. From the **Assign <Your App Name> to People** pane, search a user with Unique UserName And Email
+6. Click **Assign** and submit required attributes
+7. Click **Save and Go Back**
+8. Click **Done**
+9. Sign in to **Downstream Application** and observe the assigned user",The user should be created in a downstream application based on values derived from the Okta user profile and Okta group assignment. No errors
+C9291,Verify User Attribute Update,Update Users,"1. SCIM app is added [C9298]
+2. Provisioning is enabled [C9306]
+3. A user is assigned to the app [C9290]","1. Sign in to Okta as **Admin** 
+2. Go to https:<domain>/admin/dashboard
+3. From the **Dashboard** page, search your application 
+4. From the Application page, select **Assignments tab**
+5. Under **Assignments tab**, click the edit icon of an assigned user
+6. From the **Edit User Assignment** pane, edit/update all available attributes (for example firstName and lastName etc.)
+7. Click **Save**
+8. Go to the target app 
+9. Observe the user",Update the downstream user’s attributes when the Okta user is updated. 
+C9309,Verify Update For User Group Attributes,Update Users,"1. SCIM app is added [C9298]
+2. Provisioning is enabled [C9306]
+3. The group with members already assigned to the App [C9307]","1. Sign in to Okta as **Admin** 
+2. Go to https:<domain>/admin/dashboard
+3. From the **Dashboard** page, search your application 
+4. From the **Application** page, select **Assignments** tab
+5. Under **Assignments** tab,  click **Filters**
+6. Click **Groups**
+7. Click the pencil icon to edit the group
+8. From the **Edit Group Assignment** pane, modify group attributes
+9. Click **Save**",The users from the group should be updated in a downstream application based on values derived from the Okta group assignment.
+C9310,Verify Update User Attributes from User Profile,Update Users,"1. SCIM app is added [C9298]
+2. Provisioning is enabled [C9306]
+3. A user is assigned to the app [C9290]","1. Sign in to Okta as **Admin** 
+2. Go to https:<domain>/admin/dashboard
+3. From the **Dashboard** page, search your application 
+4. From the **Application** page, select **Assignments** tab
+5. Under **Assignments** tab,  from **Filters**
+6. Click **People**
+7. Click an end user's name
+8. From the **User Profile** page, click **Profile** tab
+9. Click **Edit**
+10. Update mapped attributes
+11. Click **Save**",The user should be updated in a downstream application based on values derived from the Okta user profile.
+C9337,Verify Update To Push Empty Values,Update Users,"1. SCIM app is added [C9298]
+2. Provisioning is enabled [C9306]
+3. The group with members already assigned to the App [C9307]","1. Sign in to Okta as **Admin** 
+2. Go to https:<domain>/admin/dashboard
+3. From the **Dashboard** page, search your application 
+4. From the **Application** page, select **Assignments** tab
+5. Under **Assignments** tab,  click **Filters**
+6. Click **Groups**
+7. Click the pencil icon to edit the group
+8. From the **Edit Group Assignment** pane, erase group attributes
+9. Click **Save** and validate downstream application
+10. Complete the same steps for individual user", No errors encountered because of empty values
+C9292,Verify Deactivate User,Deprovision (Deactivate) Users,"1. SCIM app is added [C9298]
+2. Provisioning is enabled [C9306]
+3. A user is assigned to the app [C9290]","1. Sign in to Okta as Admin 
+2. Go to https:<domain>/admin/dashboard
+3. From the **Dashboard** page, search your application 
+4. From the **Application page**, select **Assignments tab**
+5. Click an end user's name of an assigned member
+6. From the **User Profile** page, click **More Actions** > **Deactivate**
+7. From the **Deactivate Person** pane, click **Deactivate**
+8. Go to the target app 
+9. Observe the member",Deactivating people in your organization changes their account status from Active to Inactive or Deactivated. Deactivating end users revoke their app assignments.
+C9294,Verify Removes an assignment for a user from an application,Deprovision (Deactivate) Users,"1. SCIM app is added [C9298]
+2. Provisioning is enabled [C9306]
+3. A user is assigned to the app [C9290]","1. Sign in to Okta as Admin 
+2. Go to https:<domain>/admin/dashboard
+3. From the **Dashboard** page, search your application 
+4. From the **Application** page, select **Assignments tab**
+5. Under  **Assignments tab**, click X icon
+6. From the **Unassign User** pane, click *OK*
+7. Go to the target app 
+8. Observe the user","Deprovisioning the application user removes access to the downstream application. This can take many forms, such as user disabled, user access permissions changed, or user license pulled. Each application may choose different methods for deactivating a user’s access."
+C9295,Verify Suspend user functionality,Deprovision (Deactivate) Users,"1. SCIM app is added [C9298]
+2. Provisioning is enabled [C9306]
+3. A user is assigned to the app [C9290]
+","1. Sign in to Okta as Admin 
+2. Go to https:<domain>/admin/dashboard
+3. From the **Dashboard**, search your application 
+4. From the **Application** page,  select **Assignments tab**
+6. Under **Assignments tab**, click an end user's name.
+7. From the **User Profile** page, click **More Actions**
+8. Click **Suspend**
+9. Go to the target app 
+10. Observe the user",Suspended users cannot Sign in to Okta and receive a message indicating they are suspended. The Okta sign in is blocked for apps that support SAML. App and group memberships are maintained for suspended users and are reinstated if the user is subsequently unsuspended.
+C9311,Verify Removes an assignment for a group from an application,Deprovision (Deactivate) Users,"1. SCIM app is added [C9298]
+2. Provisioning is enabled [C9306]
+3. The group with members already assigned to the App [C9307]","1. Sign in to Okta as **Admin** 
+2. Go to https:<domain>/admin/dashboard
+3. From the **Dashboard** page, search your application 
+4. From the **Application** page, select **Assignments** tab
+5. Under **Assignments** tab,  click **Filters**
+6. Click **Groups**
+7. Click the X icon to remove group assignment 
+8. From the **Unassign Group** pane, click **OK**","This removes the group and users from assignment tab. All users from this group will be removed or deactivated in the app. 
+(NOTE: If app does not support DELETE, then end users are listed as Deactivated under the Status column in App)
+
+"
+C9301,Verify Sync Password Functionality,Sync Password,"1. SCIM app is added [C9298]
+2. Provisioning is enabled [C9306]
+3. A user is assigned to the app [C9290]","1. Sign in to Okta as **Admin** 
+2. Go to https:<domain>/admin/dashboard
+3. From the **Dashboard** page, search your application 
+4. From the **Application** page, select **Provisioning** tab
+5. Under **Provisioning** tab select **Settings**
+6. Click **To App**
+7. Click **Edit**
+8. Scroll to **Sync Password**
+9. Select **Sync Okta Password**
+10. Click ""Save""
+11. From the **Application** page, select the Assignment Tab > Assign Button > Assign to People
+12. From the **Assign <Your App Name> to People** pane, search an already created user (C9296) 
+13. Click **Assign**
+14. Click **Save and Go Back**
+15. Click **Done**
+16. Click an end user's name
+17. From the **Profile User** page, click **Activate**
+18. Follow the instruction from invitation email to set a password
+16. Sign in to **Downstream Application** and observe the assigned user",Okta sets the user’s password to either match the Okta password or to be a randomly generated password. 
+C9302,Verify Sync Password Update,Sync Password,"1. SCIM app is added [C9298]
+2. Provisioning is enabled [C9306]
+3. A user is assigned to the app [C9290]","1. Sign in to Okta as **Admin** 
+2. Go to https:<domain>/admin/dashboard
+3. From the **Dashboard** page, search your application 
+4. From the **Application** page, select **Provisioning** tab
+5. Under **Provisioning** tab select **Settings**
+6. Click **To App**
+7. Click **Edit**
+8. Scroll to **Sync Password**
+9. Select **Sync Okta Password**
+10. Click ""Save""
+11. From the **Application** page, select the Assignment Tab > Assign Button > Assign to People
+12. From the **Assign <Your App Name> to People** pane, search an already created user (C9296) 
+13. Click **Assign**
+14. Click **Save and Go Back**
+15. Click **Done**
+16. Click an end user's name
+17. From the **Profile User** page, click **Activate**
+18. Follow the instruction from invitation email to set a password
+16. Sign in to **Downstream Application** and observe the assigned user
+17. Sign in to Okta as **Admin** 
+18. Go to https:<domain>/admin/dashboard
+19. From the **Dashboard** page, search your application 
+20. From the **Application** page, select **Assignments** tab
+21. Under **Assignments** tab, click an end user's name
+22. From the **Profile User** page, click **Reset Password**
+23. Follow the instruction from email to reset a password
+24. Sign in to **Downstream Application**, use the new password","Okta sets the user’s password or user sets a new password it depends on a configuration. The user should be able to Sign in to the application using a new password. 
+The user should not be able to Sign in to a downstream application using an old password. "
+C9303,Verify Import User Functionality,Read (Import) Users,"1. SCIM app is added [C9298]
+2. Provisioning is enabled [C9306]
+
+","1. Sign in to Okta as **Admin** 
+2. Go to https:<domain>/admin/dashboard
+3. From the **Dashboard** page, search your application 
+4. From the **Application** page, select **Import** tab
+5. Under **Import** tab, click **Import Now**
+6. From the **Statistics Data** pane, click **OK**
+7. From the **Import Results** page, click a checkbox to select a member
+8. Click **Confirm Assignments** to confirm the member","Observe imported users & groups from the downstream application. The imported users should be listed below. Only ""active"" users might be imported from App to Okta. 
+The following attributes should be mapped to Okta firstName, lastName, email and userName, according to mapping (some attributes can be empty if this attribute has an empty value in app) (Only active users might be imported )
+2. User should be confirmed for Okta with all mapped attributes"
+C9304,Verify Import User Functionality Scanned Users,Read (Import) Users,"1. SCIM app is added [C9298]
+2. Provisioning is enabled [C9306]
+3. The application supports import users
+","1. Create a member in downstream application
+2. Sign in to Okta as **Admin** 
+3. Go to https:<domain>/admin/dashboard
+4. From the **Dashboard** page, search your application 
+5. From the **Application** page, select **Import** tab
+6. Under **Import** tab, click **Import Now**
+7. Observe **Statistics Data** pane","Observe
+1 users scanned!
+1 new user imported
+0 existing users updated
+0 existing users unchanged
+0 users removed
+
+0 groups scanned!
+
+"
+C9305,Verify Import User > Update Functionality,Read (Import) Users,"1. SCIM app is added [C9298]
+2. Provisioning is enabled [C9306]
+3. Import and confirm member from App to Okta [C9303]","1. Sign in to Okta as Admin 
+2. Go to https:<domain>/admin/dashboard
+3. From the **Dashboard** page, search your application 
+4. From the **Application** page, select **Assignments tab**
+5. Under  **Assignments tab**, click the pencil icon for imported and confirmed member [C9303]
+6. From the **Edit User Assignment** pane, edit several attributes
+7. Click **Save**
+8. Observe the user a downstream application",The user should be updated in a downstream application based on values derived from the Edit User Assignment.
+C9338,Verify Import Group Functionality,Read (Import) Groups,"1. SCIM app is added [C9298]
+2. Provisioning is enabled [C9306]","1. Create a group in a downstream application
+2. Sign in to Okta as Admin
+3. Go to https:<domain>/admin/dashboard
+4. From the Dashboard page, search your application
+5. From the Application page, select Import tab
+6. Under Import tab, click Import Now
+7. Observe Statistics Data pane","1 groups scanned!
+1 new groups imported
+0 existing groups updated
+0 existing groups unchanged
+0 groups removed"
+C9312,Verify Push Groups > Create Group,Using Group Push,"1. SCIM app is added [C9298]
+2. Provisioning is enabled [C9306]
+3. The group with members already assigned to the App [C9307]
+4. Rename app groups to match group name in Okta, flag ENABLED [C9313]
+
+NOTE: 
+Any group members that you wish to push to the target app MUST be previously provisioned and assigned to the target app.","1. Sign in to Okta as **Admin**
+2. Go to https:<domain>/admin/dashboard
+3. From the **Dashboard** page, search your application
+4. From the **Application** page, select the **Push Groups** tab
+5. Under **Push Groups** tab, click **Push Groups**
+6. Click **Find groups by name**
+7. Enter a group to push
+8. Under **Match result & push action**, select  **Create Group**
+9. Click **Save**
+10. Sign in to **Downstream Application** and observe the created group","This group should be created in a target app. This test shows group push without enhanced functionality. All users from the group are assigned in the app to this group. 
+
+NOTE: While Group Push adds these groups to third-party apps, it does not create groups in Okta."
+C9315,Verify Push Groups > Link Group >Rename App Group,Using Group Push,"1. SCIM app is added [C9298]
+2. Provisioning is enabled [C9306]
+3. The group with members already assigned to the App [C9307]
+4. Rename app groups to match group name in Okta, flag ENABLED [C9313]
+5. Create a group in the target app 
+
+NOTE: 
+Any group members that you wish to push to the target app MUST be previously provisioned and assigned to the target app.","1. Sign in to Okta as **Admin**
+2. Go to https:<domain>/admin/dashboard
+3. From the **Dashboard** page, search your application
+4. From the **Application** page, select the **Push Groups** tab
+5. Under **Push Groups** tab, click **Push Groups**
+6. Click **Find groups by name**
+7. Click **Enter a group to push** and enter a name of the group you want to push 
+8. Under **Match result & push action**, select  **Link Group**
+9. Click **Select a group**, search and select a group which exists in your app
+10. Click **Save**
+11. Sign in to **Downstream Application** and observe the renamed group","The group should be renamed in a target app. All users from the group are assigned in the app to this group, old users still assigned to the group.
+No additional groups should be created in the third-party app."
+C9316,Verify Push Groups > Push Now,Using Group Push,"1. SCIM app is added [C9298]
+2. Provisioning is enabled [C9306]
+3. The group with members already assigned to the App [C9307]
+4. Rename app groups to match group name in Okta, flag ENABLED [C9313]
+
+NOTE: 
+Any group members that you wish to push to the target app MUST be previously provisioned and assigned to the target app.","1. Log in to Okta as Admin
+2. Go to https:/admin/dashboard
+3. From the Dashboard page, search your application
+4. From the Application page, select the Push Groups tab
+5. Under Push Groups tab, click Push Groups
+6. Click Find groups by name
+7. Enter a group to push
+8. Under Match result & push action, select  Create Group
+9. Click Save
+10. Log in to Downstream Application and observe the created group
+11. From the Downstream application add several new members to the group, members should not be provisioned from OKTA
+12. From the Push Groups tab in OKTA, click Active
+13. Click *Push Now**","Push Now serves to ""force"" a push in the rare occurrence when the state of Okta and the target app are no longer in sync. This action performs a full overwrite of the overall membership and makes Okta the master for the group. The exception to this is Active Directory, which only pushes the newest members to the group, and does not overwrite overall membership.
+
+NOTE: Make sure Push Now is working fine for empty group"
+C9317,Verify Push Groups > Push Empty Group,Using Group Push,"1. SCIM app is added [C9298]
+2. Provisioning is enabled [C9306]
+3. The group without members should be created in Okta [C9297]
+4. Rename app groups to match group name in Okta, flag ENABLED [C9313]
+","1. Sign in to Okta as **Admin**
+2. Go to https:<domain>/admin/dashboard
+3. From the **Dashboard** page, search your application
+4. From the **Application** page, select the **Push Groups** tab
+5. Under **Push Groups** tab, click **Push Groups**
+6. Click **Find groups by name**
+7. Enter a group to push
+8. Under **Match result & push action**, select  **Create Group**
+9. Click **Save**
+10. Sign in to **Downstream Application** and observe the created group",This is an empty group and should be created in a target app. 
+C9318,Verify Push Groups > Unlink Pushed Group > Delete the group in the target app,Using Group Push,"1. SCIM app is added [C9298]
+2. Provisioning is enabled [C9306]
+3. The group with members already assigned to the App [C9307]
+4. Rename app groups to match group name in Okta, flag ENABLED [C9313]
+5. The group already pushed to the target app [C9312]
+
+NOTE: 
+Any group members that you wish to push to the target app MUST be previously provisioned and assigned to the target app.","1. Sign in to Okta as **Admin**
+2. Go to https:<domain>/admin/dashboard
+3. From the **Dashboard** page, search your application
+4. From the **Application** page, select the **Push Groups** tab
+5. Under **Push Groups** tab, click **Push Groups**
+6. Click **Find groups by name**
+7. Enter a group to push
+8. Under **Match result & push action**, select  **Create Group**
+9. Click **Save**
+10. Under **Push Groups**, click **Active**
+11. Click **Unlink Pusher Group**
+12. From the **Unlink Pushed Group** pane, select **Delete the group in the target app (recommended)**
+13. Click **Unlink**
+10. Sign in to **Downstream Application** and observe the group should be deleted",This group should be deleted under **Push Groups** tab and should be deleted in the target app. User accounts will not be deleted.
+C9319,Verify Push Groups > Deactivate Group Push,Using Group Push,"1. SCIM app is added [C9298]
+2. Provisioning is enabled [C9306]
+3. The group with members already assigned to the App [C9307]
+4. Rename app groups to match group name in Okta, flag ENABLED [C9313]
+
+NOTE: 
+Any group members that you wish to push to the target app MUST be previously provisioned and assigned to the target app.","1. Sign in to Okta as **Admin**
+2. Go to https:<domain>/admin/dashboard
+3. From the **Dashboard** page, search your application
+4. From the **Application** page, select the **Push Groups** tab
+5. Under **Push Groups** tab, click **Push Groups**
+6. Click **Find groups by name**
+7. Enter a group to push
+8. Under **Match result & push action**, select  **Create Group**
+9. Click **Save**
+10. From the **Push Groups** tab, click **Active**
+11. Click **Deactivate Group Push**
+12. Under **Group in Okta**, click an end group's name
+13. From the **Group Profile**, click ""Assign people""
+14. Search a member by userName
+15. From the table **Person & username** pane, click **+**
+16. The person has been added to the group but not pushed to the App.
+17. Sign in to **Downstream Application** and observe the new member was not added to the group in app","Deactivate group push: pauses the synchronization of groups, retaining their appearance in the app. In this mode, you're able to keep adding new members to the group, but those changes won't appear in the target app."
+C9320,Verify Push Groups > Activate Group Push,Using Group Push,"1. SCIM app is added [C9298]
+2. Provisioning is enabled [C9306]
+3. The group with members already assigned to the App [C9307]
+4. Rename app groups to match group name in Okta, flag ENABLED [C9313]
+
+NOTE: 
+Any group members that you wish to push to the target app MUST be previously provisioned and assigned to the target app.","1. Sign in to Okta as **Admin**
+2. Go to https:<domain>/admin/dashboard
+3. From the **Dashboard** page, search your application
+4. From the **Application** page, select the **Push Groups** tab
+5. Under **Push Groups** tab, click **Push Groups**
+6. Click **Find groups by name**
+7. Enter a group to push
+8. Under **Match result & push action**, select  **Create Group**
+9. Click **Save**
+10. From the **Push Groups** tab, click **Active**
+11. Click **Deactivate Group Push**
+12. Under **Group in Okta**, click an end group's name
+13. From the **Group Profile**, click **Assign people**
+14. Search a member by userName
+15. From the **Person & username** pane, click **+**
+16. The person has been added to the group but not pushed to the App.
+17. Go to https:<domain>/admin/dashboard
+18. From the **Dashboard** page, search your application
+19. From the **Application** page, select the **Push Groups** tab
+20. Under **Push Groups** tab, click **Inactive**
+22. Click **Activate Group Push**, to start pushing group members
+23. Sign in to **Downstream Application** and observe the new member should be pushed to the group in ap",The membership immediately pushed to the group in the target app. 
+C9321,Verify Push Groups > Unlink Pushed Group > Leave the group in the target app,Using Group Push,"1. SCIM app is added [C9298]
+2. Provisioning is enabled [C9306]
+3. The group with members already assigned to the App [C9307]
+4. Rename app groups to match group name in Okta, flag ENABLED [C9313]
+5. The group already pushed to the target app [C9312]
+
+NOTE: 
+Any group members that you wish to push to the target app MUST be previously provisioned and assigned to the target app.","1. Sign in to Okta as **Admin**
+2. Go to https:<domain>/admin/dashboard
+3. From the **Dashboard** page, search your application
+4. From the **Application** page, select the **Push Groups** tab
+5. Under **Push Groups** tab, click **Push Groups**
+6. Click **Find groups by name**
+7. Enter a group to push
+8. Under **Match result & push action**, select  **Create Group**
+9. Click **Save**
+10. Under **Push Groups**, click **Active**
+11. Click **Unlink Pusher Group**
+12. From the **Unlink Pushed Group** pane, select **Leave the group in the target app**
+13. Click **Unlink**
+14. Sign in to **Downstream Application** and observe the group should not be deleted",This group should be deleted under Push Groups tab. This group should be left in the target app. All users are assigned to the group. User accounts will not be deleted.
+C9322,Verify Push Groups > Link Group > After Leave the group in the target app,Using Group Push,"1. SCIM app is added [C9298]
+2. Provisioning is enabled [C9306]
+3. The group with members already assigned to the App [C9307]
+4. Rename app groups to match group name in Okta, flag ENABLED [C9313]
+5. The group has been unlinked from the Okta but left the group in the target app [C9321]
+
+NOTE: 
+Any group members that you wish to push to the target app MUST be previously provisioned and assigned to the target app.","1. Sign in to Okta as **Admin**
+2. Go to https:<domain>/admin/dashboard
+3. From the **Dashboard** page, search your application
+4. From the **Application** page, select the **Push Groups** tab
+5. Under **Push Groups** tab, click **Push Groups**
+6. Click **Find groups by name**
+7. Click **Enter a group to push** and enter a name of the group you want to push 
+8. Under **Match result & push action**, select  **Link Group**
+9. Click **Select a group**, search and select a group which was left in your app after test case number [C9321] 
+10. Click **Save**
+11. Sign in to **Downstream Application** and observe the group","The synchronization of groups, retaining their appearance in the app. You're able to keep adding new members to the group and those changes will appear in the target app. All old users in the app which linked to the group remain the same place"
+C9323,Verify Push Groups > Push Groups By Rule,Using Group Push,"1. SCIM app is added [C9298]
+2. Provisioning is enabled [C9306]
+3. The group with members already assigned to the App [C9307]
+4. Rename app groups to match group name in Okta, flag ENABLED [C9313]
+
+NOTE: 
+Any group members that you wish to push to the target app MUST be previously provisioned and assigned to the target app.","1. Sign in to Okta as **Admin**
+2. Go to https:<domain>/admin/dashboard
+3. From the **Dashboard** page, search your application
+4. From the **Application** page, select the **Push Groups** tab
+5. Under **Push Groups** tab, click **Push Groups**
+6. Click **Find groups by rule**
+7. For the rule name field, enter a rule name
+9. For the group name, select **start with** and enter a group name
+10. For the group description, select **start with** and enter a description
+11. Click **Create Rule**","Once created, the rule name is shown under the By rule filter and the found groups are listed under the Group in Okta column and pushed to a downstream application.
+This group should be created in a target app. All users from the group are assigned in the app to this group."
+C9324,Verify Push Groups > Deactivate Rule,Using Group Push,"1. SCIM app is added [C9298]
+2. Provisioning is enabled [C9306]
+3. The group with members already assigned to the App [C9307]
+4. Rename app groups to match group name in Okta, flag ENABLED [C9313]
+5. The rule has been created [C9323]
+
+NOTE: 
+Any group members that you wish to push to the target app MUST be previously provisioned and assigned to the target app.","1. Sign in to Okta as **Admin**
+2. Go to https:<domain>/admin/dashboard
+3. From the **Dashboard** page, search your application
+4. From the **Application** page, select the **Push Groups** tab
+5. Under **Push Groups** tab, click **Push Groups**
+6. Click **Find groups by rule**
+7. For the rule name field, enter a rule name
+9. For the group name, select **start with** and enter a group name
+10. For the group description, select **start with** and enter a description
+11. Click **Create Rule**
+12. Sign in to **Downstream Application** and observe the group is pushed
+13. Deactivate specific groups by clicking the **Active**, click **Deactivate Rule** to stop automatically syncing new groups
+13. Create a new group in Okta to match your search expression [C9307]
+14. Make sure a new group is not syncing automatically",Stop automatically syncing new groups matching your search expression.  Groups previously matched by this rule are unaffected.
+C9325,Verify Push Groups > Delete Rule,Using Group Push,"1. SCIM app is added [C9298]
+2. Provisioning is enabled [C9306]
+3. The group with members already assigned to the App [C9307]
+4. Rename app groups to match group name in Okta, flag ENABLED [C9313]
+5. The rule has been created [C9323]
+
+NOTE: 
+Any group members that you wish to push to the target app MUST be previously provisioned and assigned to the target app.","1. Sign in to Okta as **Admin**
+2. Go to https:<domain>/admin/dashboard
+3. From the **Dashboard** page, search your application
+4. From the **Application** page, select the **Push Groups** tab
+5. Under **Push Groups** tab, click **Push Groups**
+6. Click **Find groups by rule**
+7. For the rule name field, enter a rule name
+9. For the group name, select **start with** and enter a group name
+10. For the group description, select **start with** and enter a description
+11. Click **Create Rule**
+12. Sign in to **Downstream Application** and observe the group is pushed
+13. From the **Rule** pane, click **Active**
+14. Click **Delete Rule**
+15. From the **Delete Mapping Rule** pane, select **Delete the associated groups**
+16. Click **Delete**
+17. Sign in to **Downstream Application** and observe the group is being removed",Permanently remove the rule and optionally remove pushed groups from a downstream application found by the rule.
+C9326,Verify Push Groups > Delete Rule >  Leave Associated Groups,Using Group Push,"1. SCIM app is added [C9298]
+2. Provisioning is enabled [C9306]
+3. The group with members already assigned to the App [C9307]
+4. Rename app groups to match group name in Okta, flag ENABLED [C9313]
+5. The rule has been created [C9323]
+
+NOTE: 
+Any group members that you wish to push to the target app MUST be previously provisioned and assigned to the target app.","1. Sign in to Okta as **Admin**
+2. Go to https:<domain>/admin/dashboard
+3. From the **Dashboard** page, search your application
+4. From the **Application** page, select the **Push Groups** tab
+5. Under **Push Groups** tab, click **Push Groups**
+6. Click **Find groups by rule**
+7. For the rule name field, enter a rule name
+9. For the group name, select **start with** and enter a group name
+10. For the group description, select **start with** and enter a description
+11. Click **Create Rule**
+12. Sign in to **Downstream Application** and observe the group is pushed
+13. From the **Rule** pane, click **Active**
+14. Click **Delete Rule**
+15. From the **Delete Mapping Rule** pane, select **Leave associated groups**
+16. Click **Delete**
+17. Sign in to **Downstream Application** and observe the group is not being removed","Permanently remove the rule from Okta, remove the group from pushed groups in Okta but don't remove pushed groups from a downstream application."
+C9327,Verify Push Groups >Bulk Edit > Delete,Using Group Push,"1. SCIM app is added [C9298]
+2. Provisioning is enabled [C9306]
+3. The group with members already assigned to the App [C9307]
+4. Rename app groups to match group name in Okta, flag ENABLED [C9313]
+5. The group already pushed to the target app [C9312]
+
+NOTE: 
+Any group members that you wish to push to the target app MUST be previously provisioned and assigned to the target app.","1. Sign in to Okta as **Admin**
+2. Go to https:<domain>/admin/dashboard
+3. From the **Dashboard** page, search your application
+4. From the **Application** page, select the **Push Groups** tab
+5. Under **Push Groups** tab, click **Push Groups**
+6. Click **Find groups by name**
+7. Enter a group to push
+8. Under **Match result & push action**, select  **Create Group**
+9. Click **Save and Add Another**
+11. Find and Add one more group, make sure groups have been created and pushed to a target application
+12. Under **Push Groups**, click **Bulk Edit**
+13. Select several groups to delete
+14. Click **Delete** button
+15. From the **Unlink Pushed Group** pane, select **Delete the group in the target app (recommended)**
+16. Click **Unlink**
+17. Sign in to **Downstream Application** and observe the groups should be deleted",The groups should be deleted under **Push Groups** tab and should be deleted in the target app. User accounts will not be deleted.
+C9328,Verify Push Groups >Bulk Edit > Deactivate,Using Group Push,"1. SCIM app is added [C9298]
+2. Provisioning is enabled [C9306]
+3. The group with members already assigned to the App [C9307]
+4. Rename app groups to match group name in Okta, flag ENABLED [C9313]
+5. The group already pushed to the target app [C9312]
+
+NOTE: 
+Any group members that you wish to push to the target app MUST be previously provisioned and assigned to the target app.","1. Sign in to Okta as **Admin**
+2. Go to https:<domain>/admin/dashboard
+3. From the **Dashboard** page, search your application
+4. From the **Application** page, select the **Push Groups** tab
+5. Under **Push Groups** tab, click **Push Groups**
+6. Click **Find groups by name**
+7. Enter a group to push
+8. Under **Match result & push action**, select  **Create Group**
+9. Click **Save and Add Another**
+11. Add one more group, make sure groups created and pushed to the application
+12. Under **Push Groups**, click **Bulk Edit**
+13. Select groups to deactivate
+12. Click **Deactivate** button
+","Deactivate group push: pauses the synchronization of groups, retaining their appearance in the app. In this mode, you're able to keep adding new members to the group, but those changes won't appear in the target app."
+C9329,Verify Push Groups >Bulk Edit > Activate,Using Group Push,"1. SCIM app is added [C9298]
+2. Provisioning is enabled [C9306]
+3. The group with members already assigned to the App [C9307]
+4. Rename app groups to match group name in Okta, flag ENABLED [C9313]
+5. The group already pushed to the target app [C9312]
+6. Deactivate groups [C9328]
+
+NOTE: 
+Any group members that you wish to push to the target app MUST be previously provisioned and assigned to the target app.","1. Sign in to Okta as **Admin**
+2. Go to https:<domain>/admin/dashboard
+3. From the **Dashboard** page, search your application
+4. From the **Application** page, select the **Push Groups** tab
+5. Under **Push Groups**, click **Bulk Edit**
+6. Select the group is in Inactive status
+7. From the **Bulk Edit** pane, click **Activate**",The memberships immediately pushed to the group in the target app.
+C9330,Verify Push Groups > Link Group >Do Not Rename App Group,Using Group Push,"1. SCIM app is added [C9298]
+2. Provisioning is enabled [C9306]
+3. The group with members already assigned to the App [C9307]
+4. Rename app groups to match group name in Okta, flag DISABLED [C9314]
+5. Create a group in the target app 
+
+NOTE: 
+Any group members that you wish to push to the target app MUST be previously provisioned and assigned to the target app.","1. Sign in to Okta as **Admin**
+2. Go to https:<domain>/admin/dashboard
+3. From the **Dashboard** page, search your application
+4. From the **Application** page, select the **Push Groups** tab
+5. Under **Push Groups** tab, click **Push Groups**
+6. Click **Find groups by name**
+7. Click **Enter a group to push** and enter a name of the group you want to push 
+8. Under **Match result & push action**, select  **Link Group**
+9. Click **Select a group**, search and select a group which exists in your app
+10. Click **Save**
+11. Sign in to **Downstream Application** and observe the group should not be renamed","The group should be synced with a group in a target app. The group in the target app should not be renamed. All users from the group are assigned in the app to this group, old users still assigned to the group.
+No additional groups should be created in the third-party app."
+C9331,Verify Push Groups >Bulk Edit > Delete > Leave Associated Groups,Using Group Push,"1. SCIM app is added [C9298]
+2. Provisioning is enabled [C9306]
+3. The group with members already assigned to the App [C9307]
+4. Rename app groups to match group name in Okta, flag ENABLED [C9313]
+5. The group already pushed to the target app [C9312]
+
+NOTE: 
+Any group members that you wish to push to the target app MUST be previously provisioned and assigned to the target app.","1. Sign in to Okta as **Admin**
+2. Go to https:<domain>/admin/dashboard
+3. From the **Dashboard** page, search your application
+4. From the **Application** page, select the **Push Groups** tab
+5. Under **Push Groups** tab, click **Push Groups**
+6. Click **Find groups by name**
+7. Enter a group to push
+8. Under **Match result & push action**, select  **Create Group**
+9. Click **Save and Add Another**
+11. Find and Add one more group, make sure groups have been created and pushed to a target application
+12. Under **Push Groups**, click **Bulk Edit**
+13. Select several groups to delete
+14. Click **Delete** button
+15. From the **Unlink Pushed Group** pane, select **Leave the group in the target app**
+16. Click **Unlink**
+17. Sign in to **Downstream Application** and observe the groups should not be deleted",The groups should be deleted under **Push Groups** tab and should not be deleted in the target app. User accounts will not be deleted.
+C9332,Verify Push Groups >Add Members As Group,Using Group Push,"1. SCIM app is added [C9298]
+2. Provisioning is enabled [C9306]
+3. The group with members already assigned to the App [C9307]
+4. Rename app groups to match group name in Okta, flag ENABLED [C9313]
+
+NOTE: 
+Any group members that you wish to push to the target app MUST be previously provisioned and assigned to the target app.","1. Sign in to Okta as **Admin**
+2. Go to https:<domain>/admin/dashboard
+3. From the **Dashboard** page, search your application
+4. From the **Application** page, select the **Push Groups** tab
+5. Under **Push Groups** tab, click **Push Groups**
+6. Click **Find groups by name**
+7. Enter a group to push
+8. Under **Match result & push action**, select  **Create Group**
+9. Click **Save**
+10. Sign in to **Downstream Application** and observe the created group
+11. From the **Push Groups** tab, click an end group's name
+12. From the **Group Edit** page, click **Assign people**
+13. From the **Search by userName** pane, search required member
+14. From the **Add Members to <Your Group Name>** pane, click **+**
+15. Sign in to **Downstream Application** and observe, the user should be added to a group
+","This group should be created in a target app. 
+All users from the group are assigned in the app to this group. 
+All additional user should be added to the application
+
+
+NOTE: While Group Push adds these groups to third-party apps, it does not create groups in Okta."
+C9333,Verify Push Groups > Remove Members From Group,Using Group Push,"1. SCIM app is added [C9298]
+2. Provisioning is enabled [C9306]
+3. The group with members already assigned to the App [C9307]
+4. Rename app groups to match group name in Okta, flag ENABLED [C9313]
+
+NOTE: 
+Any group members that you wish to push to the target app MUST be previously provisioned and assigned to the target app.","1. Sign in to Okta as **Admin**
+2. Go to https:<domain>/admin/dashboard
+3. From the **Dashboard** page, search your application
+4. From the **Application** page, select the **Push Groups** tab
+5. Under **Push Groups** tab, click **Push Groups**
+6. Click **Find groups by name**
+7. Enter a group to push
+8. Under **Match result & push action**, select  **Create Group**
+9. Click **Save**
+10. Sign in to **Downstream Application** and observe the created group and provisioned members 
+11. From the **Push Groups** tab, click an end group's name
+12. From the **Group Edit** page, remove a member to click **X** icon
+13. Sign in to **Downstream Application** and observe the user should be unassigned from group
+
+",The user has been unassigned from a group and removed from the application because as it was assigned as a group assignment
+C9359,Enable Profile Sourcing,Profile Sourcing Users,"1. SCIM app is added [C9298]
+2. Provisioning is enabled [C9306]","1. Sign in to Okta as Admin 
+2. Go to https:<domain>/admin/dashboard
+3. From the **Dashboard** page, search your application 
+4. From the **Application page**, select **Provisioning tab**
+5. From the **Settings**, click **To Okta**
+6. Scroll to **Profile & Lifecycle Sourcing**
+7. From the **Profile & Lifecycle Sourcing** pane, click **Edit**
+8. Enable  **Allow <Your App Name>to master Okta users**
+9. From the **When a user is deactivated in the app**,  select **Deactivate**
+10. Click **Save**
+","When a user is deactivated in the app, then after an import, the user is deactivated in Okta"
+C9360,Verify User Profile if User Mastered By Profile Sourcing,Profile Sourcing Users,"1. SCIM app is added [C9298]
+2. Provisioning is enabled [C9306]
+3. Enable profile sourcing [C9359]","1. Sign in to Okta as Admin 
+2. Go to https:<domain>/admin/dashboard
+3. From the **Dashboard** page, search your application 
+4. From the **Application page**, select **Import** tab
+5. From the **Import** tab, click **Import Now**
+6. Select imported member
+7. Click **Confirm Assignment** to confirm an imported user
+8. From the **Application page**, select **Assignment** tab
+9. From the **Assignment** tab, click an end user's name
+9. From the **User Profile** page, see below user information, validate the status
+","Expected status for an imported user which is mastering by profile sourcing should be **Profile mastered by <Your Application Name>**
+"
+C9361,Verify User Profile > Deactivate User,Profile Mastering Users,"1. SCIM app is added [C9298]
+2. Provisioning is enabled [C9306]
+3. Enable profile mastering [C9359]","1. Sign in to Okta as Admin 
+2. Go to https:<domain>/admin/dashboard
+3. From the **Dashboard** page, search your application 
+4. From the **Application page**, select **Import** tab
+5. From the **Import** tab, click **Import Now**
+6. Select imported member
+7. Click **Confirm Assignment** to confirm an imported user
+8. From the **Application page**, select **Assignment** make sure member successfully assigned to an application
+9. Deactivate the member from a downstream application
+10. From the **Application page**, select **Import** tab
+10. From the **Import** tab, click **Import Now**
+11. From the **Application page**, select **Assignment** tab
+","Deactivating end user revokes their app assignments, the end user is listed as Deactivated under the Status column in User Profile. "
