@@ -32,8 +32,48 @@ From Auth0: https://auth0.com/docs/authenticate/protocols/scim/inbound-scim-for-
 
 ### SCIM + SAML
 
+**Due the limitation and price of Auth0 quota, we currently don't support this method.**
+
 [Auth0: Inbound SCIM for Okta Workforce SAML Connections](https://auth0.com/docs/authenticate/protocols/scim/inbound-scim-for-okta-workforce-saml-connections)
 
 Example video(Zscaler): https://play.vidyard.com/DmYrUHPJDeH9BXy5AQMTZt
 
 Steps: https://community.auth0.com/t/saml-setup-for-okta-as-idp-and-auth0-as-sp/91164
+
+#### Okta Side Setup:
+
+1. Sign in to the Okta Developer Console.
+
+2. Go to Create App Integration and choose SAML 2.0 from the options.
+
+3. In Single sign on URL, enter the Auth0 tenant’s login callback URL: https://YOUR_DOMAIN/login/callback?connection=YOUR_CONNECTION_NAME
+   i.e. `https://suger-dev.us.auth0.com/login/callback?connection=okta-saml-test`
+
+4. Set the Audience URI (SP Entity ID): `urn:auth0:YOUR_TENANT{just tenant name}:YOUR_CONNECTION_NAME`
+   i.e. `urn:auth0:suger-dev:okta-saml-test`
+
+5. Click next. Here, click View SAML Setup Instructions, where you will find the Identity Provider Single Sign-On URL, which should look something like: https://OKTA_TENANT_DOMAIN.okta.com/app/…/…/sso/saml and X.509 Certificate, which needs to be downloaded for later use when it will need to be uploaded into the Auth0 SAML connection setup.
+
+6. Click Finish.
+
+#### Auth0 Side Setup
+
+1. Login to the Auth0 Dashboard. Navigate Authentication > Enterprise.
+
+2. Click on the + sign next to the SAML connection.
+
+3. Give the connection the same name used previously to setup the Okta Application for Single sign on URL and URI.
+
+4. Set the Sign-in URL, which should look something like:https://OKTA_TENANT_DOMAIN.okta.com/app/…/…/sso/saml that can be found in the OKTA View SAML Setup Instructions.
+
+5. Upload the X.509 Certificate, which was downloaded from the OKTA View SAML Setup Instructions screen described above.
+
+6. Click Save Changes at the bottom of the screen.
+
+7. On the Applications tab, toggle on to create an association between the Application and the desired connection.
+
+8. Enable IdP-initiated SSO
+
+9. SCIM setup: https://auth0.com/docs/authenticate/protocols/scim/inbound-scim-for-okta-workforce-saml-connections#configure-scim-settings-in-auth0
+
+10. The setup is now complete: test by navigating to Dashboard > Authentication > Enterprise > SAML < connection name> , three dots on the right, and Try the connection link.
