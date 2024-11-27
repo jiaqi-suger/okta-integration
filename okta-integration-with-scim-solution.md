@@ -44,12 +44,18 @@ Steps:
 
 Tests:
 
-1. Add user: the user is created in Auth0 and can access console ui.
-2. Add a group: users in the group are created in Auth0 and can access console ui.
-3. Add user to a assigned group: the user is created in Auth0 and can access console ui.
-4. Remove user or remove users from group:
-   1. Auth0 users are not deleted.
-   2. Users can still access console ui until they log out and try to log in again. Then the login will fail.
+- Add user: the user is created in Auth0 and can access console ui.
+- Add a group: users in the group are created in Auth0 and can access console ui.
+- Add user to a assigned group: the user is created in Auth0 and can access console ui.
+- Remove user or remove users from group: Auth0 users are not deleted but marked as "Blocked". Users can still access console ui until they log out and try to log in again. Then the login will fail.
+
+3. Add additional attributes to SCIM schema: `suger_role`
+
+4. Update the user's `role` in DB based on `suger_role`.
+
+5. Run a cronjob to clean up blocked users.
+
+6. Publish the Okta apps to OIN (Okta Integration Network).
 
 ### SCIM + SAML
 
