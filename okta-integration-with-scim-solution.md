@@ -30,6 +30,27 @@ From Auth0: https://auth0.com/docs/authenticate/protocols/scim/inbound-scim-for-
 
 > This integration will require two applications to be registered in Okta Workforce: the OpenID Connect integration and the SCIM integration. The same users and groups must be assigned to both.
 
+Steps:
+
+1. Create first App for OIDC SSO:
+
+- https://help.okta.com/en-us/content/topics/apps/apps_app_integration_wizard_oidc.htm
+
+- https://auth0.com/docs/authenticate/identity-providers/enterprise-identity-providers/okta
+
+2. Create second App for SCIM:
+
+- https://auth0.com/docs/authenticate/protocols/scim/inbound-scim-for-okta-workforce-connections
+
+Tests:
+
+1. Add user: the user is created in Auth0 and can access console ui.
+2. Add a group: users in the group are created in Auth0 and can access console ui.
+3. Add user to a assigned group: the user is created in Auth0 and can access console ui.
+4. Remove user or remove users from group:
+   1. Auth0 users are not deleted.
+   2. Users can still access console ui until they log out and try to log in again. Then the login will fail.
+
 ### SCIM + SAML
 
 **Due the limitation and price of Auth0 quota, we currently don't support this method.**
